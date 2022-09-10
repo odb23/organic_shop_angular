@@ -1,16 +1,56 @@
+import { LoginComponent } from './components/login/login.component';
+import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {AngularFireModule}  from '@angular/fire/compat';
+import {AngularFireDatabaseModule} from '@angular/fire/compat/database'
+import {AngularFireAuthModule} from '@angular/fire/compat/auth'
+import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HomeComponent } from './components/home/home.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { OrderSuccessComponent } from './components/order-success/order-success.component';
+import { MyOrdersComponent } from './components/my-orders/my-orders.component';
+import { AdminProductsComponent } from './components/admin/admin-products/admin-products.component';
+import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    ProductsComponent,
+    ShoppingCartComponent,
+    CheckoutComponent,
+    OrderSuccessComponent,
+    MyOrdersComponent,
+    AdminProductsComponent,
+    AdminOrdersComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    NgbModule,
+    RouterModule.forRoot([
+      {path:'', component: HomeComponent},
+      {path: 'login', component: LoginComponent},
+      {path: 'products', component: ProductsComponent},
+      {path: 'order-success', component: OrderSuccessComponent },
+      {path: 'shopping-cart', component: ShoppingCartComponent },
+      {path: 'check-out', component: CheckoutComponent},
+      {path: 'me/orders', component: MyOrdersComponent},
+      {path: 'admin/products', component: AdminProductsComponent},
+      {path: 'admin/orders', component: AdminOrdersComponent},
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
