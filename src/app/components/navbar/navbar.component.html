@@ -23,7 +23,7 @@
 
             <li ngbDropdown class="nav-item dropdown">
               <a
-              *ngIf="user$ | async as user; else anonymousUser"
+              *ngIf="authService.user | async as user; else anonymousUser"
               ngbDropdownToggle
                 class="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown"

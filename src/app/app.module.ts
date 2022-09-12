@@ -1,10 +1,12 @@
+import { AuthGuard } from './services/auth/auth-guard.service';
+import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {AngularFireModule}  from '@angular/fire/compat';
-import {AngularFireDatabaseModule} from '@angular/fire/compat/database'
-import {AngularFireAuthModule} from '@angular/fire/compat/auth'
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,7 +33,7 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
     OrderSuccessComponent,
     MyOrdersComponent,
     AdminProductsComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,18 +43,38 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
     AngularFireAuthModule,
     NgbModule,
     RouterModule.forRoot([
-      {path:'', component: HomeComponent},
-      {path: 'login', component: LoginComponent},
-      {path: 'products', component: ProductsComponent},
-      {path: 'order-success', component: OrderSuccessComponent },
-      {path: 'shopping-cart', component: ShoppingCartComponent },
-      {path: 'check-out', component: CheckoutComponent},
-      {path: 'me/orders', component: MyOrdersComponent},
-      {path: 'admin/products', component: AdminProductsComponent},
-      {path: 'admin/orders', component: AdminOrdersComponent},
+      { path: '', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'shopping-cart', component: ShoppingCartComponent },
+      {
+        path: 'order-success',
+        component: OrderSuccessComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'check-out',
+        component: CheckoutComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'me/orders',
+        component: MyOrdersComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/products',
+        component: AdminProductsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/orders',
+        component: AdminOrdersComponent,
+        canActivate: [AuthGuard],
+      },
     ]),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService, AuthGuard],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
