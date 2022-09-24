@@ -1,4 +1,5 @@
-import { AuthGuard } from './services/auth/auth-guard.service';
+import { AdminAuthGuard } from './services/guards/admin-auth-guard.service';
+import { AuthGuard } from './services/guards/auth-guard.service';
 import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { environment } from './../environments/environment';
@@ -65,16 +66,16 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
       {
         path: 'admin/products',
         component: AdminProductsComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminAuthGuard],
       },
       {
         path: 'admin/orders',
         component: AdminOrdersComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminAuthGuard],
       },
     ]),
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, AdminAuthGuard ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

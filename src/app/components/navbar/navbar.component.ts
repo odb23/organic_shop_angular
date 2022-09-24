@@ -1,3 +1,4 @@
+import { IAppUser } from './../../models/app-user';
 import { AuthService } from './../../services/auth/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent  {
+  appUser!: IAppUser | null;
+
   constructor(private _authService : AuthService) { 
+    this._authService.appUser$.subscribe((user) => this.appUser = user )
   }
 
   logOut () {
