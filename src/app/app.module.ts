@@ -22,6 +22,9 @@ import { OrderSuccessComponent } from './components/order-success/order-success.
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { AdminProductsComponent } from './components/admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
+import { ProductFormComponent } from './components/admin/product-form/product-form.component';
+import { FormsModule } from '@angular/forms';
+import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
   declarations: [
@@ -35,10 +38,13 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    CustomFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -63,6 +69,17 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
         component: MyOrdersComponent,
         canActivate: [AuthGuard],
       },
+
+      {
+        path: 'admin/products/new',
+        component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard],
+      },
+      {
+        path: 'admin/products/:id',
+        component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard],
+      },
       {
         path: 'admin/products',
         component: AdminProductsComponent,
@@ -75,7 +92,7 @@ import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orde
       },
     ]),
   ],
-  providers: [AuthService, AuthGuard, AdminAuthGuard ],
+  providers: [AuthService, AuthGuard, AdminAuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
