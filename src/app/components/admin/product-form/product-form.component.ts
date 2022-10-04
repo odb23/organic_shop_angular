@@ -20,7 +20,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     imageUrl: '',
   };
   private sub!: Subscription;
-  private id: string | null;
+   id: string | null;
 
   constructor(
     private categoryService: CategoryService,
@@ -28,15 +28,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.categories$ = categoryService.getCategories().valueChanges();
+    this.categories$ = this.categoryService.getAll();
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id)
       this.sub = this.productService.get(this.id).subscribe((p) => {
         this.product = p;
-        console.log(this.product);
       });
-    console.log(this.product);
   }
 
   ngOnInit(): void {}
