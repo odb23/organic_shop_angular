@@ -27,7 +27,7 @@ import { AdminProductsComponent } from './components/admin/admin-products/admin-
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 import { ProductFilterComponent } from './components/products/product-filter/product-filter.component';
-import { ProductCardComponent } from './components/products/product-card/product-card.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 
 @NgModule({
