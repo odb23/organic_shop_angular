@@ -1,22 +1,6 @@
 <section class="row">
   <div class="col-2" style="margin-top: 20px">
-    <div class="list-group">
-      <a
-        class="list-group-item list-group-item-action"
-        [class.active]="category.length === 0"
-        routerLink="/"
-        [queryParams]="{ category: null }"
-        >All Categories</a>
-      <a
-        *ngFor="let c of categories$ | async"
-        class="list-group-item list-group-item-action"
-        [class.active]="category === c.key"
-        routerLink="/"
-        [queryParams]="{ category: c.key }"
-      >
-        {{ c.name }}
-      </a>
-    </div>
+    <app-product-filter [category]="category"></app-product-filter>
   </div>
 
   <div class="col">
