@@ -1,23 +1,71 @@
 <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 <p>
-  <input #query (keyup)="filter(query.value)" type="text" class="form-control" placeholder="Search...">
+  <input
+    #query
+    (keyup)="filter(query.value)"
+    type="text"
+    class="form-control"
+    placeholder="Search..."
+  />
 </p>
 
-<table class="table">
+<ngx-datatable
+  class="material"
+  [rows]="filteredProducts"
+  [columns]="[{ name: 'Title' }, { name: 'Price' }, { name: '' }]"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  rowHeight="auto"
+  [limit]="10"
+>
+  <ngx-datatable-column name="Title">
+    <ng-template let-column="column" ngx-datatable-header-template>
+      {{ column.name }}
+    </ng-template>
+    <ng-template let-value="value" ngx-datatable-cell-template>
+      {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Price">
+    <ng-template
+      let-column="column"
+      let-sort="sortFn"
+      ngx-datatable-header-template
+    >
+      <span (click)="sort()">{{ column.name }}</span>
+    </ng-template>
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+      {{ value | currency }}
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="key" [sortable]="false">
+    <ng-template
+      let-column="column"
+      
+      ngx-datatable-header-template
+    >
+    </ng-template>
+    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+      <a [routerLink]="['/admin/products/', value]">Edit</a>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>
+
+<!-- <table class="table">
   <thead>
     <tr>
       <th>Title</th>
       <th>Price</th>
       <th></th>
-
     </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let p of filteredProducts" >
+    <tr *ngFor="let p of filteredProducts">
       <td>{{ p.title }}</td>
       <td>{{ p.price }}</td>
       <td><a [routerLink]="['/admin/products/', p.key]">Edit</a></td>
     </tr>
   </tbody>
-</table>
+</table> -->
