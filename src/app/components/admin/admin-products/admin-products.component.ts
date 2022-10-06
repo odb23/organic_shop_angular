@@ -1,7 +1,7 @@
 import { ProductService } from './../../../services/product/product.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Subscription } from 'rxjs';
-import { IProduct } from 'src/app/types/IProduct';
+import { IProduct } from 'src/app/models/IProduct';
 
 @Component({
   selector: 'app-admin-products',

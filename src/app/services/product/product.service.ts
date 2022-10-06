@@ -1,4 +1,4 @@
-import { IProduct } from 'src/app/types/IProduct';
+import { IProduct } from 'src/app/models/IProduct';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';

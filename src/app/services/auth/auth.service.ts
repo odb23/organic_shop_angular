@@ -46,7 +46,11 @@ export class AuthService {
 
   get appUser$(): Observable<IAppUser | null> {
     return this.user.pipe(
-      switchMap((user) => this.userService.get(user?.uid))
+      switchMap((user) =>{
+        if (!user) return new Observable<null>()
+
+       return this.userService.get(user?.uid)
+      })
     );
   }
 }
