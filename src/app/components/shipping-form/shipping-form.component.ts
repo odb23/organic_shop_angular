@@ -3,7 +3,7 @@ import { IAppUser } from 'src/app/models/app-user';
 import { AuthService } from './../../services/auth/auth.service';
 import { OrderService } from './../../services/order/order.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart/shopping-cart.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ShoppingCart } from 'src/app/models/shopping-cart';
 import { Subscription } from 'rxjs';
 import { Order } from 'src/app/models/order';
@@ -20,21 +20,18 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
     addressLine2: '',
     city: '',
   };
-  cart!: ShoppingCart;
+  @Input('cart') cart! : ShoppingCart;
   userId = '';
-  cartSubscription!: Subscription;
   userSubscription!: Subscription;
 
   constructor(
-    private cartService: ShoppingCartService,
     private orderService: OrderService,
     private authService: AuthService,
     private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
-    let cart$ = await this.cartService.getCart();
-    this.cartSubscription = cart$.subscribe((cart) => (this.cart = cart));
+    
 
     this.userSubscription = this.authService.user.subscribe((u) => {
       if (!u) return;
@@ -53,7 +50,7 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.cartSubscription.unsubscribe();
+   
     this.userSubscription.unsubscribe();
   }
 }
